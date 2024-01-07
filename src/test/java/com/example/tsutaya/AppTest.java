@@ -26,4 +26,23 @@ class AppTest {
 		List<String> actual = Arrays.asList(ss.split("[\r\n]+"));
 		assertLinesMatch(expected, actual);
 	}
+
+	@Test
+	void shouldAnswerWithTrueForShortTermRental() {
+		List<String> expected = Arrays.asList(
+				"Rental Record for マーチン・ファウラー",
+				"\tsun\t1.5",
+				"\tmoon\t3.0",
+				"\tpolice\t2.0",
+				"Amount owed is 6.5",
+				"You earned 3 frequent renter points");
+
+		Customer c = new Customer("マーチン・ファウラー");
+		c.addRental(new Rental(1, new Movie(Movie.CHILDRENS, "sun")));
+		c.addRental(new Rental(1, new Movie(Movie.NEW_RELEASE, "moon")));
+		c.addRental(new Rental(1, new Movie(Movie.REGULAR, "police")));
+		String ss = c.statement();
+		List<String> actual = Arrays.asList(ss.split("[\r\n]+"));
+		assertLinesMatch(expected, actual);
+	}
 }
