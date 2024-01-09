@@ -28,7 +28,7 @@ public class Customer {
 			double thisAmount = 0;
 			Rental each = (Rental) rentals.nextElement();
 
-			thisAmount = amountFor(each);
+			thisAmount = each.getCharge();
 
 			freqentRenterPoints++;
 			if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1) {
@@ -41,30 +41,6 @@ public class Customer {
 
 		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
 		result += "You earned " + String.valueOf(freqentRenterPoints) + " frequent renter points";
-		return result;
-	}
-
-	private double amountFor(Rental aRental) throws AssertionError {
-		double result = 0;
-		switch (aRental.getMovie().getPriceCode()) {
-		case Movie.REGULAR:
-			result += 2;
-			if (aRental.getDaysRented() > 2) {
-				result += (aRental.getDaysRented() - 2) * 1.5;
-			}
-			break;
-		case Movie.NEW_RELEASE:
-			result += aRental.getDaysRented() * 3;
-			break;
-		case Movie.CHILDRENS:
-			result += 1.5;
-			if (aRental.getDaysRented() > 3) {
-				result += (aRental.getDaysRented() - 3) * 1.5;
-			}
-			break;
-		default:
-			throw new AssertionError();
-		}
 		return result;
 	}
 }
